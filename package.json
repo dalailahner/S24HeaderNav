@@ -1,0 +1,19 @@
+{
+  "name": "s24headernav",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "browserslist": "^4.24.4",
+    "lightningcss": "^1.29.1",
+    "vite": "^6.1.1"
+  },
+  "dependencies": {
+    "noicss.reset": "^1.8.1",
+    "sortablejs": "^1.15.6"
+  }
+}
