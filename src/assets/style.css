@@ -234,7 +234,6 @@
     position: relative;
     &:has(form) {
       width: 100%;
-      position: relative;
     }
   }
   .headerNavBtn {

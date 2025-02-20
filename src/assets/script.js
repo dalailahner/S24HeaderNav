@@ -1,13 +1,7 @@
 import Sortable from "sortablejs/modular/sortable.core.esm";
 
-// GLOBALS
-const dropdownMenuEditBtn = document.querySelector(".dropdownMenuEditBtn");
-let lastScrollPos = 0;
-const searchForm = document.querySelector(".searchForm");
-
-// EVENTS
-
 // scroll
+let lastScrollPos = 0;
 document.addEventListener("scroll", (event) => {
   if (lastScrollPos < window.scrollY) document.querySelector(".mainHeader").classList.add("hide");
   if (lastScrollPos > window.scrollY) document.querySelector(".mainHeader").classList.remove("hide");
@@ -17,6 +11,7 @@ document.addEventListener("scroll", (event) => {
 // search
 document.querySelector(".searchBtn").addEventListener("click", (event) => {
   event.preventDefault();
+  const searchForm = document.querySelector(".searchForm");
   if (searchForm.search.value.length > 0) {
     searchForm.submit();
     return;
@@ -24,15 +19,21 @@ document.querySelector(".searchBtn").addEventListener("click", (event) => {
   searchForm.search.focus();
 });
 
-// hover elongation
-for (const el of document.querySelectorAll(".headerNavMenuItem")) {
+// setup flyout menus
+const headerNavMenuItemWithFlyout = document.querySelectorAll(".headerNavMenuItem:has(.dropdownMenu)");
+for (const el of headerNavMenuItemWithFlyout) {
   const headerNavBtn = el.querySelector(".headerNavBtn");
   if (headerNavBtn) {
+    // reset state (remove hover class on every menu item)
     headerNavBtn.addEventListener("pointerenter", (event) => {
-      for (const el of document.querySelectorAll(".headerNavMenuItem")) {
-        el.classList.remove("hover");
+      for (const elOfPointerEnter of headerNavMenuItemWithFlyout) {
+        elOfPointerEnter.classList.remove("hover");
       }
     });
+      }
+      }
+    });
+    // elongate hover state when leaving the menu item
     let hoverTimeout;
     headerNavBtn.addEventListener("pointerleave", (event) => {
       el.classList.add("hover");
@@ -43,6 +44,7 @@ for (const el of document.querySelectorAll(".headerNavMenuItem")) {
     });
   }
   const dropdownMenuCont = el.querySelector(".dropdownMenuCont");
+  // remove hover class when leaving the flyout menu
   if (dropdownMenuCont) {
     dropdownMenuCont.addEventListener("pointerleave", (event) => {
       el.classList.remove("hover");
@@ -50,22 +52,24 @@ for (const el of document.querySelectorAll(".headerNavMenuItem")) {
   }
 }
 
-// profile
-dropdownMenuEditBtn.addEventListener("click", (event) => {
-  const inEditMode = event.target.closest(".dropdownMenu").dataset.edit === "true";
-  event.target.closest(".dropdownMenu").dataset.edit = !inEditMode;
-});
+// Sortable
+for (const el of document.querySelectorAll(".dropdownMenuEditBtn")) {
+  el.addEventListener("click", (event) => {
+    const containingDropdown = event.target.closest(".dropdownMenu");
+    containingDropdown.dataset.edit = !(containingDropdown.dataset.edit === "true");
+  });
 
-dropdownMenuEditBtn.addEventListener(
-  "click",
-  (event) => {
-    Sortable.create(document.querySelector(".dropdownMenuSortable"), {
-      animation: 150,
-      easing: "cubic-bezier(0.87, 0, 0.13, 1)",
-      handle: ".dropdownMenuItemHandle",
-      draggable: ".dropdownMenuItem",
-      ghostClass: "sortableGhost",
-    });
-  },
-  { once: true },
-);
+  el.addEventListener(
+    "click",
+    (event) => {
+      Sortable.create(document.querySelector(".dropdownMenuSortable"), {
+        animation: 150,
+        easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+        handle: ".dropdownMenuItemHandle",
+        draggable: ".dropdownMenuItem",
+        ghostClass: "sortableGhost",
+      });
+    },
+    { once: true },
+  );
+}
