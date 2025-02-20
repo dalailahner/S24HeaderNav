@@ -23,15 +23,28 @@ document.querySelector(".searchBtn").addEventListener("click", (event) => {
 const headerNavMenuItemWithFlyout = document.querySelectorAll(".headerNavMenuItem:has(.dropdownMenu)");
 for (const el of headerNavMenuItemWithFlyout) {
   const headerNavBtn = el.querySelector(".headerNavBtn");
+  const dropdownMenuCont = el.querySelector(".dropdownMenuCont");
   if (headerNavBtn) {
     // reset state (remove hover class on every menu item)
     headerNavBtn.addEventListener("pointerenter", (event) => {
       for (const elOfPointerEnter of headerNavMenuItemWithFlyout) {
         elOfPointerEnter.classList.remove("hover");
+        elOfPointerEnter.setAttribute("aria-expanded", "false");
       }
     });
+    // expand on click
+    headerNavBtn.addEventListener("click", (event) => {
+      console.log("DISPLAY: ", getComputedStyle(dropdownMenuCont).display);
+      for (const elOfClick of headerNavMenuItemWithFlyout) {
+        if (elOfClick !== event.target.closest(".headerNavMenuItem")) {
+          elOfClick.setAttribute("aria-expanded", "false");
+        }
       }
+      if (el.getAttribute("aria-expanded") === "false" && getComputedStyle(dropdownMenuCont).display === "none") {
+        el.setAttribute("aria-expanded", "true");
+        return;
       }
+      el.setAttribute("aria-expanded", "false");
     });
     // elongate hover state when leaving the menu item
     let hoverTimeout;
@@ -43,7 +56,6 @@ for (const el of headerNavMenuItemWithFlyout) {
       }, 333);
     });
   }
-  const dropdownMenuCont = el.querySelector(".dropdownMenuCont");
   // remove hover class when leaving the flyout menu
   if (dropdownMenuCont) {
     dropdownMenuCont.addEventListener("pointerleave", (event) => {

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      noicss.reducedmotion:
+        specifier: ^1.0.0
+        version: 1.0.0
       noicss.reset:
         specifier: ^1.8.1
         version: 1.8.1
@@ -377,6 +380,9 @@ packages:
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
 
+  noicss.reducedmotion@1.0.0:
+    resolution: {integrity: sha512-NaBVglK7QW/NO4P4aKdgcyHaMLbbseE7bGyOTZGgCi5KOXQwxf5NdY8M9apxjRRMu9GiO96+7wIt06VKmPMDKw==}
+
   noicss.reset@1.8.1:
     resolution: {integrity: sha512-Vkbrj0Y4UiMHnjaHaN0py48pGz8oEDnFfjQZlz+CgRUPSwFj4Pp+ioeyKECm7ssbQu0rulwTsI8UvAcrWjvGVQ==}
 
@@ -675,6 +681,8 @@ snapshots:
   nanoid@3.3.8: {}
 
   node-releases@2.0.19: {}
+
+  noicss.reducedmotion@1.0.0: {}
 
   noicss.reset@1.8.1: {}
 

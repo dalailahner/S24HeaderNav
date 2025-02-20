@@ -1,6 +1,7 @@
-@layer reset, main;
+@layer reset, main, reducedmotion;
 
 @import url("noicss.reset") layer(reset);
+@import url("noicss.reducedmotion") layer(reducedmotion);
 
 @layer main {
   :root {
@@ -22,6 +23,7 @@
 
   .material-symbols-rounded {
     user-select: none;
+    pointer-events: none;
   }
   a,
   a:visited {
@@ -232,6 +234,7 @@
   }
   .headerNavMenuItem {
     position: relative;
+    list-style: none;
     &:has(form) {
       width: 100%;
     }
@@ -307,7 +310,7 @@
     transition: all 0.25s ease-out;
     z-index: 1000;
   }
-  .headerNavMenuItem:is(.hover, :hover, :focus-within) {
+  .headerNavMenuItem:is(:hover, .hover, [aria-expanded="true"]) {
     & .dropdownMenuCont {
       display: block;
       opacity: 1;
